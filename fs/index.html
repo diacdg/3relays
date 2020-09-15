@@ -1,5 +1,93 @@
 <html>
+<head>
+	<meta charset="utf-8">
+	<title>Relay Dashboard</title>
+    <meta name="ROBOTS" content="NOINDEX, NOFOLLOW">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+		function getButtonClass(status) {
+			return status == 1?'on':'off';
+		}
+		
+		function createRelayHtmlRow(relayData) {
+			return '<div class="row" id="relay-1">' +
+			'<div class="channel">' +
+				'<h4>Relay '+relayData.relay+'</h4>' +
+			'</div>' +
+				'<div class="button">' +
+					'<span href="#" onclick="clickRelayOnOffButton(this)" id="relay-button-'+relayData.relay+'" data-channel="'+relayData.relay+'" class="'+getButtonClass(relayData.status)+'"><span></span></span>' +
+				'</div>' +
+			'</div>';
+		}
+		
+		function changeRelayButtonState(button, status) {				
+			button.setAttribute('class', getButtonClass(status));
+		}
+		
+		function clickRelayOnOffButton(button) {
+			var currentClass = button.getAttribute('class');
+			if (currentClass == 'disabled') {
+				return;
+			}
+			button.setAttribute('class', 'disabled');
+			
+			var relayResponseListener = function () {
+				var data = JSON.parse(this.responseText);
+				
+				changeRelayButtonState(button, data.status);			
+			} 
+			
+			var action = currentClass == 'on'?'off':'on';
+			var channel = button.getAttribute('data-channel');
+			
+			var oReq = new XMLHttpRequest();
+			oReq.addEventListener("load", relayResponseListener);
+			oReq.open('GET', '/relay/'+channel+'/'+action);
+			oReq.send();	
+		}
+	
+		function updateDataListener () {
+  			var data = JSON.parse(this.responseText);
+  			
+  			document.getElementById('uptime-value').innerText = data.uptime;
+  			document.getElementById('ram-value').innerText = data.ram;
+  			document.getElementById('free-ram-value').innerText = data.free_ram;
+  			
+  			var relaysButtonsHtml = '';
+  			for (var i in data.relays) {
+  				relaysButtonsHtml += createRelayHtmlRow(data.relays[i]);
+  			}
+  			
+  			document.getElementById('relays-list').innerHTML = relaysButtonsHtml;
+		}
+		
+		function updateData() {
+			var oReq = new XMLHttpRequest();
+			oReq.addEventListener('load', updateDataListener);
+			oReq.open('GET', '/status');
+			oReq.send();
+		}
+
+		updateData();
+		
+		setInterval(updateData, 2000);
+	</script>
+</head>
 <body>
-  <h1>Welcome to the empty project</h1>
+<header>
+<div id="header">
+<h1>Relay Dasboard</h1>
+<div id="device-info">
+<div id="uptime">Uptime: <span id="uptime-value">0</span>s</div>
+<div id="ram">RAM: <span id="ram-value">0</span></div>
+<div id="free-ram">Free RAM: <span id="free-ram-value">0</span></div>
+</div>
+</div>
+</header>
+	<section id="relays-list">
+		
+	</section>
+
 </body>
 </html>

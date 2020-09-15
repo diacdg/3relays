@@ -1,0 +1,112 @@
+body {
+	background-color: #333;
+	color: #fff;
+	font-family: sans-serif;
+}
+
+:active, :focus {
+	outline: 0;
+}
+
+/** Styling the Button **/
+#relays-list .button > span {
+	text-shadow: 0px 1px 1px rgba(250,250,250,0.1);
+	font-size: 32pt;
+	display: block;
+	position: relative;
+	text-decoration: none;
+    box-shadow: 0px 3px 0px 0px rgb(34,34,34),
+    			0px 7px 10px 0px rgb(17,17,17),
+    			inset 0px 1px 1px 0px rgba(250, 250, 250, .2), 
+    			inset 0px -12px 35px 0px rgba(0, 0, 0, .5);
+	width: 70px;
+	height: 70px;
+	border: 0;
+	color: rgb(37,37,37);
+	border-radius: 35px;
+	text-align: center;
+	line-height: 79px;
+	background-color: rgb(83,87,93);
+
+	transition: color 350ms ease, text-shadow 350ms;
+		-o-transition: color 350ms ease, text-shadow 350ms;
+		-moz-transition: color 350ms ease, text-shadow 350ms;
+		-webkit-transition: color 350ms ease, text-shadow 350ms;
+}
+
+#relays-list .button a:active {
+	background: #fff;
+	border: 0;
+}
+
+#relays-list .button > span:before {
+	content: "";
+	width: 80px;
+	height: 80px;
+	display: block;
+	z-index: -2;
+	position: absolute;
+	background-color: rgb(26,27,29);
+	left: -5px;
+	top: -2px;
+	border-radius: 40px;
+	box-shadow: 0px 1px 0px 0px rgba(250,250,250,0.1), 
+			 	inset 0px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+#relays-list .button > span:active,
+#relays-list .button > span.disabled {
+    box-shadow: 0px 0px 0px 0px rgb(34,34,34),
+    			0px 3px 7px 0px rgb(17,17,17),
+    			inset 0px 1px 1px 0px rgba(250, 250, 250, .2), 
+    			inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
+    background-color: rgb(83,87,93);
+  	top: 3px;
+}
+
+#relays-list .button a.on {
+    box-shadow: 0px 0px 0px 0px rgb(34,34,34),
+    			0px 3px 7px 0px rgb(17,17,17), 
+    			inset 0px 1px 1px 0px rgba(250, 250, 250, .2), 
+    			inset 0px -10px 35px 5px rgba(0, 0, 0, .5);
+    background-color: rgb(83,87,93);
+  	top: 3px;
+ 	color: #fff;
+  	text-shadow: 0px 0px 3px rgb(250,250,250);
+}
+#relays-list .button > span:active:before,
+#relays-list .button > span.disabled:before,
+#relays-list .button > span.on:before {
+	top: -5px;
+	background-color: rgb(26,27,29);
+	box-shadow: 0px 1px 0px 0px rgba(250,250,250,0.1), 
+			 	inset 0px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Styling the Indicator light */
+#relays-list .button > span span {
+	display: block;
+	width: 8px;
+	height: 8px;
+	    background-color: rgb(26, 93, 28);
+    	box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5), 0px 0px 3px 2px rgba(20, 109, 9, 0.5);	
+ 	border-radius: 4px;
+ 	clear: both;
+ 	position: absolute;
+ 	bottom: 42%;
+ 	left: 42%;
+ 	transition: background-color 350ms, box-shadow 700ms;
+	-o-transition: background-color 350ms, box-shadow 700ms;
+	-moz-transition: background-color 350ms, box-shadow 700ms;
+	-webkit-transition: background-color 350ms, box-shadow 700ms;
+}
+#relays-list .button > span.on span {
+	box-shadow: inset 0px 1px 0px 0px rgba(250,250,250,0.5),
+				0px 0px 3px 2px rgba(135,187,83,0.5);
+	background-color: rgb(135,187,83);
+}
+
+#relays-list .row {
+	padding: 3px;
+}
+
